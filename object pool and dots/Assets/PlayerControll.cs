@@ -20,7 +20,6 @@ public class PlayerControll : MonoBehaviour
         print(bullet_pool.queue_count);
         if(Input.GetKey(KeyCode.Z)){
             float d = 4f;
-            float d_angle = 360/d;
             float d_radian = 360/d * Mathf.PI / 180;
             for(int i = 0; i < d; i++){
                 //BulletController bullet_instanced = Instantiate(bullet , transform.position , Quaternion.identity).GetComponent<BulletController>();

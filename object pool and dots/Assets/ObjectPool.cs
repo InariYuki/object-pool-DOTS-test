@@ -20,17 +20,9 @@ public class ObjectPool<T> where T : MonoBehaviour
             return object_queue.Count;
         }
     }
-    public void InitPool(GameObject pre , int warm_up_count = 0){
+    public void InitPool(GameObject pre){
         prefab = pre;
         object_queue = new Queue<T>();
-        List<T> warm_up_list = new List<T>();
-        for(int i = 0; i < warm_up_count; i++){
-            T t = instance.Spawn(Vector3.zero , Quaternion.identity);
-            warm_up_list.Add(t);
-        }
-        for(int i = 0; i < warm_up_list.Count; i++){
-            instance.Recycle(warm_up_list[i]);
-        }
     }
     public T Spawn(Vector3 pos , Quaternion quat){
         if(prefab == null){
@@ -38,7 +30,7 @@ public class ObjectPool<T> where T : MonoBehaviour
             return default(T);
         }
         if(queue_count <= 0){
-            GameObject g = Object.Instantiate(prefab , pos , quat);
+            GameObject g = GameObject.Instantiate(prefab , pos , quat);
             T t = g.GetComponent<T>();
             if(t == null){
                 Debug.LogError(typeof(T) + " not found in prefab");
